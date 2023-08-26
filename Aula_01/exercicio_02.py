@@ -9,37 +9,41 @@
   Utilize a estrutura dict:
   (https://w3schools.com/python/python_dictionaries.asp)
 '''
-def cria_arquivo_dicionario():
-    arquivo = open('/home/matheus/Documentos/MeusProjetos/Desenvolvimento-rapido-em-python/Aula_01/exercicio_02.txt', 'a')
+def cria_arquivo_dicionario(dicionario):
     print('Entre com seu numero de identidade')
     identidade = input()
     print()
     print('Entre com seu nome')
     nome = input()
+           
+    dicionario = {identidade : nome}
+    (dicionario[identidade]) = nome
 
-    dicionario = {'identidade' : '', 'nome' : ''}
-    (dicionario['identidade']) = identidade
-    (dicionario['nome']) = nome
-
-    dicionario.update({'identidade': identidade , 'nome' : nome})
+    dicionario.update({identidade : nome})
     arquivo.writelines(dicionario)
-    arquivo.close()
+    return {identidade : nome}
 
 
-def le_arquivo_dicionario():
-    arquivo = open('/home/matheus/Documentos/MeusProjetos/Desenvolvimento-rapido-em-python/Aula_01/exercicio_02.txt','r')
-    print(arquivo.read())
-    arquivo.close()
+def le_arquivo_dicionario(dicionario):
+    print(dicionario)
+    print()
 
+
+dicionario = []
+arquivo =  open('/home/matheus/Documentos/MeusProjetos/Desenvolvimento-rapido-em-python/Aula_01/exercicio_02.txt','w')
 
 opcao = -1
 while opcao != 0:
     opcao = int(input('Digite \n"1" para criar mais dicionarios\n"2 para ler e imprimir o dicionario\n'))
     if opcao == 1:
         print('--- Adicionando dados ao dicionário ---')
-        cria_arquivo_dicionario()
+        print()
+        cria_arquivo_dicionario(dicionario)
     else:
         print('--- Lendo e imprimindo dicionario ---')
         print()
-        le_arquivo_dicionario()
+        le_arquivo_dicionario(dicionario)
         break
+
+arquivo.close()
+
