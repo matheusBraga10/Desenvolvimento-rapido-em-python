@@ -46,4 +46,4 @@ arquivo_entrada = open(exercicio_02 ,'r')
 dicionario_final = le_arquivo_dicionario()
     
 print(dicionario_final)
-
+arquivo_entrada.close()

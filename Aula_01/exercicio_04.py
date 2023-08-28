@@ -3,3 +3,9 @@
     - Copie as linhas selecionadas em um novo arquivo
 '''
 
+from pathlib import Path
+
+caminho_projeto = Path()
+caminho_arquivo = Path(__file__)
+exercicio_02 = caminho_arquivo.parent / 'exercicio_02.txt'
+exercicio_02.touch()
