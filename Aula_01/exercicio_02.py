@@ -25,41 +25,25 @@ def cria_arquivo_dicionario(arquivo):
     print('Entre com seu nome')
     nome = input() 
 
-    arquivo.writelines(identidade + ' ' + nome)
+    arquivo.writelines(identidade + ' ' + nome + '\n')
 
 
 def le_arquivo_dicionario():
-    for linha in arquivo:
-        linha = 
-        print(linha)
-    
+    dicionario = {}
+    for linha in arquivo_entrada:
+        string = linha.replace('\n','').split(' ')
+        dicionario[string[0]] = string[1]
+    return dicionario
 
-    print()
 arquivo_saida = open(exercicio_02, 'w')
-opcao = -1
-while opcao != 0:
+opcao = 1
+while opcao == 1:
     opcao = int(input('Digite \n"1" para criar o dicionario\n"2 para ler e imprimir o dicionario\n'))
     if opcao == 1:
         cria_arquivo_dicionario(arquivo_saida)
 arquivo_saida.close()
-else:
-    print()
-
-
-opcao = -1
-while opcao != 0:
-    opcao = int(input('Digite \n"1" para criar mais dicionarios\n"2 para ler e imprimir o dicionario\n'))
-    if opcao == 1:
-        arquivo_saida = open(exercicio_02, 'a')
-        print('--- Adicionando dados ao dicionário ---')
-        print()
-        cria_arquivo_dicionario()
-    else:
-        arquivo_entrada = open(exercicio_02, 'r')
-        print('--- Lendo e imprimindo dicionario ---')
-        print()
-        le_arquivo_dicionario()
-        break
-
-arquivo.close()
+arquivo_entrada = open(exercicio_02 ,'r')
+dicionario_final = le_arquivo_dicionario()
+    
+print(dicionario_final)
 
