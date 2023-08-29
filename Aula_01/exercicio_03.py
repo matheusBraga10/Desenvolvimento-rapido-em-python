@@ -15,12 +15,7 @@ exercicio_03.touch()
 
 def cria_arquivo(arquivo):
   arquivo.writelines('''Ana\nMatheus\nSebastião\nJosé\nMaria\nJoão''')
-
-
-def sorteia_arquivo():
-  for linha in arquivo_entrada:
-    string = linha.sort()
-    
+  
     
 
 arquivo_saida = open(exercicio_03,'w')
@@ -28,7 +23,6 @@ cria_arquivo(arquivo_saida)
 arquivo_saida.close()
 
 arquivo_entrada = open(exercicio_03,'r')
-arquivo_final = sorteia_arquivo()
-
-print(arquivo_final)
+arquivo_entrada.sort()
+print(arquivo_entrada.read())
 arquivo_entrada.close()
