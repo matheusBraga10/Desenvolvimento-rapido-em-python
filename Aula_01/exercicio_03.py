@@ -23,6 +23,13 @@ cria_arquivo(arquivo_saida)
 arquivo_saida.close()
 
 arquivo_entrada = open(exercicio_03,'r')
-arquivo_entrada.sort()
-print(arquivo_entrada.read())
+lista = []
+for linha in arquivo_entrada:
+  string = linha.replace('\n','').split('\n')
+  print(string)
+  lista = lista + string
+
+lista.sort()
+print(lista)
+
 arquivo_entrada.close()

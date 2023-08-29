@@ -7,5 +7,21 @@ from pathlib import Path
 
 caminho_projeto = Path()
 caminho_arquivo = Path(__file__)
-exercicio_02 = caminho_arquivo.parent / 'exercicio_02.txt'
-exercicio_02.touch()
+exercicio_04 = caminho_arquivo.parent / 'exercicio_04.txt'
+exercicio_04.touch()
+
+def cria_lista(arquivo):
+    arquivo.writelines('Ana, Matheus, Sebastião, Jośe, Maria, João')
+
+arquivo_saida = open(exercicio_04,'w')
+cria_lista(arquivo_saida)
+arquivo_saida.close()
+
+arquivo_entrada = open(exercicio_04,'r')
+lista = []
+for i in arquivo_entrada:
+    linha = i.replace('\n','').split(', ')
+    print(linha)
+    lista = lista + linha
+  
+print(lista[3:5])
