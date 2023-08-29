@@ -19,9 +19,8 @@ def cria_arquivo(arquivo):
 
 def sorteia_arquivo():
   for linha in arquivo_entrada:
-    string = linha.replace('\n','').split(' ')
-    lista[string[0]] = string[1]
-    return lista
+    string = linha.sort()
+    
     
 
 arquivo_saida = open(exercicio_03,'w')
