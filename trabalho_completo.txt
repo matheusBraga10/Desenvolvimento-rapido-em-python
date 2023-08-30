@@ -1,0 +1,251 @@
+------------------------------------------------------------------
+                            Aula_01
+------------------------------------------------------------------
+------------------------------------------------------------------
+    Exercicio_01
+    '''
+ - Faça um programa que escreve uma frase digitada pelo usuario em um arquivo. 
+Em seguida o programa de ler e imprimir o conteúdo desse arquivo
+'''
+
+from pathlib import Path
+
+caminho_projeto = Path()
+caminho_arquivo = Path(__file__)
+exercicio_01 = caminho_arquivo.parent / 'exercicio_01.txt'
+exercicio_01.touch()
+
+print('Escreva uma frase: ')
+frase = input()
+
+arquivo = open(exercicio_01,'r+')
+
+arquivo.writelines(frase)
+arquivo.close()
+
+arquivo = open(exercicio_01,'r+')
+print()
+print('=--= LENDO ARQUIVO =--=')
+print(arquivo.read())
+arquivo.close()
+------------------------------------------------------------------
+
+    Exercicio_02
+    
+'''  - Escreva um programa que lê um arquivo contendo a identidade e o nome de várias pessoas, no seguinte fortmato:
+    - 5384423 Manoel
+    - 4345566 Albrto
+    - 3235574 Mariana
+    ...
+  O programa deve gerar um dicionario onde as chaves sao as identidades e os valores os nomes. Ao final o programadeve exibir o dicionario.
+
+  Utilize a estrutura dict:
+  (https://w3schools.com/python/python_dictionaries.asp)
+'''
+
+
+from pathlib import Path
+
+caminho_projeto = Path()
+caminho_arquivo = Path(__file__)
+exercicio_02 = caminho_arquivo.parent / 'exercicio_02.txt'
+exercicio_02.touch()
+
+def cria_arquivo_dicionario(arquivo):
+    print('Entre com seu numero de identidade')
+    identidade = input()
+    print()
+    print('Entre com seu nome')
+    nome = input() 
+
+    arquivo.writelines(identidade + ' ' + nome + '\n')
+
+
+def le_arquivo_dicionario():
+    dicionario = {}
+    for linha in arquivo_entrada:
+        string = linha.replace('\n','').split(' ')
+        dicionario[string[0]] = string[1]
+    return dicionario
+
+arquivo_saida = open(exercicio_02, 'w')
+opcao = 1
+while opcao == 1:
+    opcao = int(input('Digite \n"1" para criar o dicionario\n"2 para ler e imprimir o dicionario\n'))
+    if opcao == 1:
+        cria_arquivo_dicionario(arquivo_saida)
+arquivo_saida.close()
+arquivo_entrada = open(exercicio_02 ,'r')
+dicionario_final = le_arquivo_dicionario()
+    
+print(dicionario_final)
+arquivo_entrada.close()
+------------------------------------------------------------------
+
+    Exercicio_03
+'''
+ - Escreva um programa que leia um arquivo com um conjunto de nomes (1 por linha). O programa deve ordenar os nomes e gerar um novo arquivo com os nomes ordenados.
+
+  Utilize a função sort:
+  (https:/w3schools.com/python/ref_list_sort.asp)
+
+'''
+from pathlib import Path
+
+caminho_projeto = Path()
+caminho_arquivo = Path(__file__)
+exercicio_03 = caminho_arquivo.parent / 'exercicio_03.txt'
+exercicio_03.touch()
+
+
+def cria_arquivo(arquivo):
+  arquivo.writelines('''Ana\nMatheus\nSebastião\nJosé\nMaria\nJoão''')
+  
+    
+
+arquivo_saida = open(exercicio_03,'w')
+cria_arquivo(arquivo_saida)
+arquivo_saida.close()
+
+arquivo_entrada = open(exercicio_03,'r')
+lista = []
+for linha in arquivo_entrada:
+  string = linha.replace('\n','').split('\n')
+  print(string)
+  lista = lista + string
+
+lista.sort()
+print(lista)
+
+arquivo_entrada.close()
+------------------------------------------------------------------
+
+    Exercicio_04
+'''
+  - Faça um programa que leia as linhas de 3 a 5 de um arquivo de texto (considere que tem mais do que 5 linhas)
+    - Copie as linhas selecionadas em um novo arquivo
+'''
+
+from pathlib import Path
+
+caminho_projeto = Path()
+caminho_arquivo = Path(__file__)
+exercicio_04 = caminho_arquivo.parent / 'exercicio_04.txt'
+exercicio_04.touch()
+
+def cria_lista(arquivo):
+    arquivo.writelines('Ana, Matheus, Sebastião, Jośe, Maria, João')
+
+arquivo_saida = open(exercicio_04,'w')
+cria_lista(arquivo_saida)
+arquivo_saida.close()
+
+arquivo_entrada = open(exercicio_04,'r')
+lista = []
+for i in arquivo_entrada:
+    linha = i.replace('\n','').split(', ')
+    print(linha)
+    lista = lista + linha
+  
+print(lista[3:5])
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+                            Aula_02
+------------------------------------------------------------------
+------------------------------------------------------------------
+    
+    Exercicio_01
+#Faça um programa que leia uma string e a imprima.
+
+nome = 'Matheus'
+string = f'Olá, Meu nome é {nome}!'
+
+print(string)
+------------------------------------------------------------------
+    
+    Exercicio_02
+    #Crie um programa que imprima o comprimento de uma string.
+
+nome = 'Matheus'
+string = f'Olá, Meu nome é {nome}!'
+
+print(len(string))
+------------------------------------------------------------------
+    
+    Exercicio_03
+'''Faça um programa para converter uma letra maiuscula em
+letra minúscula. Use a tabela ASCII para resolver o problema.
+(DICA: use as funções ord() e chr())
+'''
+
+letra = 'M'
+print(letra)
+
+ascii = ord(letra)
+print(ascii)
+
+minuscula = chr(ascii)
+print(minuscula)
+------------------------------------------------------------------
+    
+    Exercicio_04
+'''Faça um programa que conte o numero de 1’s que aparecem
+em um string. Exemplo: 0011001 -> 3
+'''
+
+string = '0000111101101101101'
+contagem = string.count('1')
+
+print(contagem)
+------------------------------------------------------------------
+    
+    Exercicio_05
+'''Abra um arquivo texto, calcule e escreva o numero de
+caracteres, o número de linhas e o número de palavras neste
+arquivo. Escreva também quantas vezes cada letra ocorre no
+arquivo (ignorando letras com acento). Obs.: palavras são
+separadas por um ou mais caracteres, espaço, tabulação ou
+nova linha.'''
+
+from pathlib import Path
+
+caminho_projeto = Path()
+caminho_arquivo = Path(__file__)
+exercicio_05 = caminho_arquivo.parent / 'exercicio_05_aula_02.txt'
+exercicio_05.touch()
+
+arquivo_saida = open(exercicio_05,'w')
+arquivo_saida.writelines('As pessoas me perguntam porque eu não tenho nenhuma tatuagem. Eu sempre respondo: Você colocaria um adesivo em uma Ferrari?')
+arquivo_saida.close()
+
+arquivo_entrada = open(exercicio_05,'r')
+print('Total de letras')
+print(len(arquivo_entrada.read()))
+arquivo_entrada.close()
+print()
+
+arquivo_entrada = open(exercicio_05,'r')
+numero_linhas = []
+for i in arquivo_entrada:
+    linha  = i.replace('\n','').split(', ')
+    numero_linhas = numero_linhas + linha
+print('Total de linhas')
+print(len(numero_linhas))
+arquivo_entrada.close()
+print()
+
+arquivo_entrada = open(exercicio_05,'r')
+numero_palavras = []
+for i in arquivo_entrada:
+    palavra = i.replace('\n','').split(' ')
+    numero_palavras = numero_palavras + palavra
+print('Total de palavras')
+print(len(numero_palavras))
+print()
+
+arquivo_entrada = open(exercicio_05,'r')
+numero_caracter = arquivo_entrada.read()
+print('Total de letras "a"')
+print(numero_caracter.count('a'))
+arquivo_entrada.close()
