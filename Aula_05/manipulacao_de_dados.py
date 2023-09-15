@@ -26,50 +26,52 @@
 import sqlite3 as conector
 try:
   # abertura da conexão
-    conexao = conector.connect('/home/matheus/Documentos/MeusProjetos/Desenvolvimento-rapido-em-python/Aula_04/teste.db')
+    conexao = conector.connect('/home/matheus/Documentos/MeusProjetos/Desenvolvimento-rapido-em-python/Aula_05/teste.db')
 # aquisição de um cursor
     cursor = conexao.cursor()
 
-    # comando_01 = '''
-    # CREATE TABLE Pessoa
-    # (
-    # CPF INT(11) NOT NULL,
-    # Nome VARCHAR(30) NOT NULL,
-    # Data_nascimento VARCHAR(12) NOT NULL,
-    # Usa_oculos CHAR(3),
-    # PRIMARY KEY (CPF)
-    # );
-    # '''
-
+    comando_01 = '''
+    CREATE TABLE Pessoa
+    (
+    CPF INT(11) NOT NULL,
+    Nome VARCHAR(30) NOT NULL,
+    Data_nascimento VARCHAR(12) NOT NULL,
+    Usa_oculos BLOB,
+    PRIMARY KEY (CPF)
+    );
+    '''
     comando_02 = '''
+    CREATE TABLE Marca
+    (
+    id INT(5),
+    Nome_marca VARCHAR(20) NOT NULL,
+    sigla VARCHAR(12) NOT NULL,
+    
+    PRIMARY KEY (id)
+    );
+    '''
+
+    comando_03 = '''
     CREATE TABLE Veiculo
     (
+    id,
+    CPF,
     placa INT(7) NOT NULL,
     ano VARCHAR(4) NOT NULL,
     cor VARCHAR(12) NOT NULL,
     proprietario INTEGRER(20) NOT NULL,
     marca INTEGRER(10) NOT NULL,
-    PRIMARY KEY (placa),
-    FOREIGN KEY (marca) REFERENCES Marca (id),
-    FOREIGN KEY (proprietario) REFERENCES Pessoa (CPF)
+    FOREIGN KEY (id) REFERENCES Marca (id),
+    FOREIGN KEY (CPF) REFERENCES Pessoa (CPF),
+    PRIMARY KEY (placa)
     );
     '''
 
 
-    comando_03 = '''
-    CREATE TABLE Marca
-    (
-    id INT(11) NOT NULL,
-    Nome_veiculo VARCHAR(20) NOT NULL,
-    sigla VARCHAR(12) NOT NULL,
-    Usa_oculos CHAR(3),
-    PRIMARY KEY (id)
-    );
-    '''
 
     
 # execução do comando: SELECT, INSERT, CREATE...
-    # cursor.execute(comando_01)
+    cursor.execute(comando_01)
     cursor.execute(comando_02)
     cursor.execute(comando_03)
 # Efetivação do comando
