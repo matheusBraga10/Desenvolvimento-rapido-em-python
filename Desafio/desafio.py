@@ -5,25 +5,41 @@ uma tabela no sqlite através de um programa escrito em Python. Os comandos SQL 
 O arquivo a ser utilizado será o Empresas0:
 '''
 
-import pandas as pd
-import requests 
-import json
+import openai
 import os
+import pandas as pd
+import requests
+import json
 
-ENDERECO = '/home/matheus/Documentos/Empresas0/K3241.K03200Y0.D30812.EMPRECSV'
-RETORNO = 'https://sdw-2023-prd.up.railway.app/'
+open.api_key = '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'
 
-df = pd.read_csv(ENDERECO)
+def generate_ai_ids(user):
+    completion = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "system", "content": "Você é um especialista em ciência de dados."
+            },
+            {
+                "role": "user", "content": "mostre-me como acessar os dados em .csv o arquivo K3241.K03200Y0.D30812.EMPRECSV dentro de /home/matheus/Empresas0.zip"
+            }
 
-user_ids = df['id'].tolist()
-print(user_ids)
+        ]
+        )
+    return completion.choices[0].massage.contenct.strip('\"')
 
-def get_user(id):
+# swd2023_api_url = 'https://sdw-2023-prd.up.app'
+# df = pd.read_csv('K3241.K03200Y0.D30812.EMPRECSV')
+# users_ids = df['UserID'].tolist()
+# print(users_ids)
+                                                              
+# # def get_user(id):
+# #     response = requests.get(f'{swd2023_api_url}/users/{id}')
+# #     return response.json() if response.status_code == 200 else None
 
-    response = requests.get(ENDERECO)
-    return response.json() if response.status_code == 200 else None
+# users = [user for id in users_ids if (user :=get_user(id)) is not None]
+# print((json.drums(users, indent=2)))
 
-user = [user for id in user_ids if (user := get_user(id)) is not None]
-print(json.dumps(user, ident=2))
-
-
+# for user in users:
+#     metodo = generate_ai_ids(user)
+#     print(metodo)
