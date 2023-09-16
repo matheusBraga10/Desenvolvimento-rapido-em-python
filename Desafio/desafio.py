@@ -8,6 +8,7 @@ O arquivo a ser utilizado será o Empresas0:
 import pandas as pd
 import requests 
 import json
+import os
 
 ENDERECO = '/home/matheus/Documentos/Empresas0/K3241.K03200Y0.D30812.EMPRECSV'
 RETORNO = 'https://sdw-2023-prd.up.railway.app/'
