@@ -7,7 +7,6 @@ O arquivo a ser utilizado será o Empresas0:
 
 
 import pandas as pd
-import findspark
 from pyspark.sql import SparkSession
 
 
@@ -18,7 +17,7 @@ spark = SparkSession.builder.master('local[*]').appName("Iniciando com Spark").c
 empresas = spark.read.csv(arquivo, sep=';', inferSchema=True);
 empresas.printSchema()
 
-empresas.count()
+print(empresas.count())
 
 # users_ids = df['UserID'].tolist()
 # print(users_ids)
