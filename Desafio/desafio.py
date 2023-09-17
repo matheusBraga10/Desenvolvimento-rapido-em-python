@@ -8,15 +8,7 @@ O arquivo a ser utilizado será o Empresas0:
 
 import pandas as pd
 
-arquivo = '/home/matheus/Empresas0/K3241.K03200Y0.D30812.EMPRECSV'
+arquivo = '/home/matheus/Empresas0/empresas.csv'
 df = pd.read_csv(arquivo, sep=';', encoding='ISO-8859-1')
-# from pyspark.sql import SparkSession
 
-
-
-# spark = SparkSession.builder.master('local[*]').appName("Iniciando com Spark").config('spark.ui.port', '4050').getOrCreate()
-
-# empresas = spark.read.csv(arquivo, sep=';', inferSchema=True);
-# empresas.printSchema()
-
-# print(empresas.count())
+print(df.count())
