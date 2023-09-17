@@ -7,17 +7,16 @@ O arquivo a ser utilizado será o Empresas0:
 
 
 import pandas as pd
-from pyspark.sql import SparkSession
-
 
 arquivo = '/home/matheus/Empresas0/K3241.K03200Y0.D30812.EMPRECSV'
+df = pd.read_csv(arquivo, sep=';', encoding='ISO-8859-1')
+# from pyspark.sql import SparkSession
 
-spark = SparkSession.builder.master('local[*]').appName("Iniciando com Spark").config('spark.ui.port', '4050').getOrCreate()
 
-empresas = spark.read.csv(arquivo, sep=';', inferSchema=True);
-empresas.printSchema()
 
-print(empresas.count())
+# spark = SparkSession.builder.master('local[*]').appName("Iniciando com Spark").config('spark.ui.port', '4050').getOrCreate()
 
-# users_ids = df['UserID'].tolist()
-# print(users_ids)
+# empresas = spark.read.csv(arquivo, sep=';', inferSchema=True);
+# empresas.printSchema()
+
+# print(empresas.count())
