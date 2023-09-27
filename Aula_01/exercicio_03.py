@@ -25,11 +25,11 @@ arquivo_saida.close()
 arquivo_entrada = open(exercicio_03,'r')
 lista = []
 for linha in arquivo_entrada:
-  string = linha.replace('\n','').split('\n')
+  string = linha.replace('\n','').split('\n') # replace = substituir / split = separador
   print(string)
   lista = lista + string
 
-lista.sort()
+lista.sort() # sort = ordenar por ordem alfabetica ou numerica
 print(lista)
 
 arquivo_entrada.close()

@@ -10,5 +10,5 @@ print(curso.rstrip()+'.')
 
 print()
 
-lista = ['linha','linha2','linha3','linha4','linha5']
-print(lista.strip()+', ')
+lista = ['linha ',' linha2',' linha3 ',' linha4','linha5']
+print(lista.strip() + ', ') 
