@@ -14,6 +14,7 @@ class designer(classe_funcionalidades):
         self.lista_frame_2()
         self.monta_tabela()
         self.select_lista()
+        self.indice()
         janela.mainloop()
     
     def tela(self):
@@ -35,16 +36,16 @@ class designer(classe_funcionalidades):
         self.bt_limpar = Button(self.frame_1, text='Limpar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command= self.limpa_cliente)
         self.bt_limpar.place(relx= 0.2, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão buscar
-        self.bt_buscar = Button(self.frame_1, text='Buscar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
+        self.bt_buscar = Button(self.frame_1, text='Buscar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.busca_cliente)
         self.bt_buscar.place(relx= 0.3, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão novo
-        self.bt_novo = Button(self.frame_1, text='Novo', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
+        self.bt_novo = Button(self.frame_1, text='Novo', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.add_cliente)
         self.bt_novo.place(relx= 0.4, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão alterar
-        self.bt_alterar = Button(self.frame_1, text='Alterar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.add_cliente)
+        self.bt_alterar = Button(self.frame_1, text='Alterar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.altera_cliente)
         self.bt_alterar.place(relx= 0.5, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão apagar
-        self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
+        self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.deleta_cleinte)
         self.bt_apagar.place(relx= 0.6, rely= 0.1, relwidth= 0.1, relheight= 0.15)
 
         # Criação label entrada do codigo
@@ -93,8 +94,21 @@ class designer(classe_funcionalidades):
         self.barra_de_rolagem_lista = Scrollbar(self.frame_2, orient='vertical')
         self.lista_cliente.configure(yscrooll=self.barra_de_rolagem_lista.set)
         self.barra_de_rolagem_lista.place(relx=0.96, rely=0.1, relwidth=0.04, relheight=0.85)
+        self.lista_cliente.bind('<Double-1>', self.duplo_clique)
         
+    def indice(self):
+        barra_de_menu = Menu(self.janela)
+        self.janela.config(menu = barra_de_menu)
+        file_menu_1 = Menu(barra_de_menu)
+        file_menu_2 = Menu(barra_de_menu)
 
+        def quit():
+            self.janela.destroy()
+        
+        barra_de_menu.add_cascade(label= 'Opções', menu = file_menu_1)
+        barra_de_menu.add_cascade(label= 'Sobre', menu = file_menu_1)
 
+        file_menu_1.add_command(label= 'Sair', command = quit)
+        file_menu_2.add_command(label= 'Limpa Cliente', command = command= self.limpa_cliente)
 
 designer()

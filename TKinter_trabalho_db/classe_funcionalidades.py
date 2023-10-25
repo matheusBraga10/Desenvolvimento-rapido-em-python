@@ -2,6 +2,12 @@ import sqlite3
 
 
 class funcionalidades():
+    def variaveis(self):
+        self.codigo = self.codigo_entry.get()
+        self.nome = self.nome_entry.get()
+        self.telefone = self.telefone_entry.get()
+        self.cidade = self.cidade_entry.get()
+
     def limpa_cliente(self):
         self.codigo_entry.delete(0, END)
         self.nome_entry.delete(0, END)
@@ -29,10 +35,7 @@ class funcionalidades():
         self.conn_db.commit(); print('Banco de dados criado')
 
     def add_cliente(self):
-        self.codigo = self.codigo_entry.get()
-        self.nome = self.nome_entry.get()
-        self.telefone = self.telefone_entry.get()
-        self.cidade = self.cidade_entry.get()
+        self.variaveis()
         self.conecta_db()
         self.cursor.execute('''
             INSERT INT clientes (nome_cliente, telefone, cidade)
@@ -51,5 +54,41 @@ class funcionalidades():
             self.lista_cliente.insert('', END, values=1)
         self.desconecta_bd()
 
-    def duplo_clique(self):
-        
+    def duplo_clique(self, event):
+        self.limpa_cliente()
+        self.lista_cliente.selection()
+
+        for n in self.lista_cliente.selection():
+            col1, col2, col3, col4 = self.lista_cliente.item(n, 'values')
+            self.codigo_entry.insert(END, col1)
+            self.nome_entry.insert(END, col2)
+            self.telefone_entry.insert(END, col3)
+            self.cidade_entry.insert(END, col4)
+
+    def deleta_cliente(self):
+        self.variaveis()
+        self.conecta_db()
+        self.cursor.execute('''DELETE FROM clientes WHERE cod = ? ''', (self.codigo))
+        self.conn_db.commit()
+        self.desconecta_bd()
+        self.limpa_cliente()
+        self.select_lista()
+
+    def altera_clente(self):
+        self.variaveis()
+        self.conecta_db()
+        self.cursor.execute('''UPDATE clientes SET nome_cliente = ?, telefone= ?, cidade = ?
+            WHERE cod = ?''', (self.nome, self.telefone, self.cidade, self.codigo))
+        self.conn_db.commit()
+        self.desconecta_bd()
+        self.limpa_cliente()
+        self.select_lista()
+
+    def busca_cliente(self):
+        self.variaveis()
+        self.conecta_db()
+        self.cursor.execute('''SELECT FROM clientes WHERE cod = ? ''', (self.codigo))
+        self.conn_db.commit()
+        self.desconecta_bd()
+        self.limpa_cliente()
+        self.select_lista()
