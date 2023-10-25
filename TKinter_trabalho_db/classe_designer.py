@@ -111,4 +111,3 @@ class designer(classe_funcionalidades):
         file_menu_1.add_command(label= 'Sair', command = quit)
         file_menu_2.add_command(label= 'Limpa Cliente', command = command= self.limpa_cliente)
 
-designer()
