@@ -1,15 +1,19 @@
 from tkinter import *
 from tkinter import ttk
 
+from classe_funcionalidades import *
+
 janela = Tk()
 
-class designer():
+class designer(classe_funcionalidades):
     def __init__(self):
         self.janela = janela
         self.tela()
         self.frames_da_tela()
         self.widgets_frame_1()
         self.lista_frame_2()
+        self.monta_tabela()
+        self.select_lista()
         janela.mainloop()
     
     def tela(self):
@@ -28,7 +32,7 @@ class designer():
 
     def widgets_frame_1(self):
         # Criação botão limpar
-        self.bt_limpar = Button(self.frame_1, text='Limpar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
+        self.bt_limpar = Button(self.frame_1, text='Limpar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command= self.limpa_cliente)
         self.bt_limpar.place(relx= 0.2, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão buscar
         self.bt_buscar = Button(self.frame_1, text='Buscar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
@@ -37,7 +41,7 @@ class designer():
         self.bt_novo = Button(self.frame_1, text='Novo', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
         self.bt_novo.place(relx= 0.4, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão alterar
-        self.bt_alterar = Button(self.frame_1, text='Alterar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
+        self.bt_alterar = Button(self.frame_1, text='Alterar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.add_cliente)
         self.bt_alterar.place(relx= 0.5, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão apagar
         self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'))
