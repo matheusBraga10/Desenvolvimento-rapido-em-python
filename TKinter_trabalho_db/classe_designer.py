@@ -3,7 +3,7 @@ from tkinter import ttk
 
 janela = Tk()
 
-class aplicacao():
+class designer():
     def __init__(self):
         self.janela = janela
         self.tela()
@@ -61,15 +61,15 @@ class aplicacao():
         self.lb_telefone = Label(self.frame_1, text= 'Telefone',bg= '#d9dbde',fg='#496487')
         self.lb_telefone.place(relx= 0.05, rely= 0.55)
 
-        self.codigo_entry = Entry(self.frame_1)
-        self.codigo_entry.place(relx= 0.05, rely= 0.65, relwidth= 0.4)
+        self.telefone_entry = Entry(self.frame_1)
+        self.telefone_entry.place(relx= 0.05, rely= 0.65, relwidth= 0.4)
 
         # Criação label entrada do Cidade
         self.lb_cidade = Label(self.frame_1, text= 'Cidade',bg= '#d9dbde',fg='#496487')
         self.lb_cidade.place(relx= 0.05, rely= 0.55)
 
-        self.codigo_entry = Entry(self.frame_1)
-        self.codigo_entry.place(relx= 0.05, rely= 0.65, relwidth= 0.4)
+        self.cidade_entry = Entry(self.frame_1)
+        self.cidade_entry.place(relx= 0.05, rely= 0.65, relwidth= 0.4)
         
     def lista_frame_2(self):
         self.lista_cliente = ttk.Treeview(self.frame_2, height= 3, column= ('col1','col2','col3','col4'))
@@ -93,4 +93,4 @@ class aplicacao():
 
 
 
-aplicacao()
+designer()
