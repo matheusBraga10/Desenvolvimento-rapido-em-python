@@ -5,8 +5,8 @@ import tkinter as tk
 if __name__ == '__main__':
 
     janela = tk.Tk()
-    funcionalidades = classe_funcionalidades()
-    designer = classe_designer(janela, classe_funcionalidades) 
+    classe_funcionalidades = classe_funcionalidades()
+    classe_designer = classe_designer(janela, classe_funcionalidades) 
     
     
     designer()
