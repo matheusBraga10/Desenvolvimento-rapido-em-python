@@ -89,7 +89,7 @@ class aplicacao():
         self.barra_de_rolagem_lista = Scrollbar(self.frame_2, orient='vertical')
         self.lista_cliente.configure(yscrooll=self.barra_de_rolagem_lista.set)
         self.barra_de_rolagem_lista.place(relx=0.96, rely=0.1, relwidth=0.04, relheight=0.85)
-        
+        ,
 
 
 
