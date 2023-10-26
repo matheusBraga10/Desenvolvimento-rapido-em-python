@@ -1,5 +1,6 @@
 import sqlite3
-
+from tkinter import *
+#from classe_designer import *
 
 class funcionalidades():
     def variaveis(self):
@@ -25,33 +26,35 @@ class funcionalidades():
         self.conecta_db()
         # Cria tabela
         self.cursor.execute('''
-        CREATE TABLE IF NOT EXISTS clientes (
-            cod INTERGER PRIMARY KEY,
+            CREATE TABLE IF NOT EXISTS clientes (
+            cod INTEGER PRIMARY KEY,
             nome_cliente CHAR(60) NOT NULL,
-            telefone INTERGER(20),
+            telefone INTEGER(20),
             cidade CHAR(60)
             );
         ''')
         self.conn_db.commit(); print('Banco de dados criado')
+        self.desconecta_bd()
 
     def add_cliente(self):
         self.variaveis()
         self.conecta_db()
         self.cursor.execute('''
-            INSERT INT clientes (nome_cliente, telefone, cidade)
-            VALUES (?, ?, ?)''', self.nome, self.telefone, self.cidade)
+            INSERT INTO clientes (nome_cliente, telefone, cidade)
+            VALUES (?, ?, ?)''', (self.nome, self.telefone, self.cidade))
         self.conn_db.commit()
         self.desconecta_bd()
         self.select_lista()
         self.limpa_cliente()
 
     def select_lista(self):
-        self.lista_cliente.delete(*self.lista_cliente.get_childre())
+        self.lista_cliente.delete(*self.lista_cliente.get_children())
         self.conecta_db()
-        lista = self.cursor.execute('''SELECT cod, nome_cliente, telefone, cidade  FROM clientes
+        lista = self.cursor.execute('''
+            SELECT cod, nome_cliente, telefone, cidade  FROM clientes
             ORDER BY nome_cliente ASC; ''')
         for i in lista:
-            self.lista_cliente.insert('', END, values=1)
+            self.lista_cliente.insert('', END, values=i)
         self.desconecta_bd()
 
     def duplo_clique(self, event):
@@ -74,10 +77,11 @@ class funcionalidades():
         self.limpa_cliente()
         self.select_lista()
 
-    def altera_clente(self):
+    def altera_cliente(self):
         self.variaveis()
         self.conecta_db()
-        self.cursor.execute('''UPDATE clientes SET nome_cliente = ?, telefone= ?, cidade = ?
+        self.cursor.execute('''
+            UPDATE clientes SET nome_cliente = ?, telefone= ?, cidade = ?
             WHERE cod = ?''', (self.nome, self.telefone, self.cidade, self.codigo))
         self.conn_db.commit()
         self.desconecta_bd()
@@ -87,8 +91,15 @@ class funcionalidades():
     def busca_cliente(self):
         self.variaveis()
         self.conecta_db()
-        self.cursor.execute('''SELECT FROM clientes WHERE cod = ? ''', (self.codigo))
-        self.conn_db.commit()
-        self.desconecta_bd()
+        self.lista_cliente.delete(*self.lista_cliente.get_children())
+        self.nome_entry.insert(END, '%')
+        nome = self.nome_entry.get()
+        self.cursor.execute('''
+            SELECT * FROM clientes
+            WHERE  nome_cliente LIKE '%s' ORDER BY nome_cliente ASC''' % nome)
+        busca_nome_cliente = self.cursor.fetchall()
+        for i in busca_nome_cliente:
+            self.lista_cliente.insert('', END, values=i)
         self.limpa_cliente()
-        self.select_lista()
+        self.desconecta_bd()
+        

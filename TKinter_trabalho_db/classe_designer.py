@@ -1,11 +1,14 @@
 from tkinter import *
 from tkinter import ttk
+import tkinter.messagebox as mb
 
 from classe_funcionalidades import *
 
+
 janela = Tk()
 
-class designer(classe_funcionalidades):
+
+class designer(funcionalidades):
     def __init__(self):
         self.janela = janela
         self.tela()
@@ -45,7 +48,7 @@ class designer(classe_funcionalidades):
         self.bt_alterar = Button(self.frame_1, text='Alterar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.altera_cliente)
         self.bt_alterar.place(relx= 0.5, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão apagar
-        self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.deleta_cleinte)
+        self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.deleta_cliente)
         self.bt_apagar.place(relx= 0.6, rely= 0.1, relwidth= 0.1, relheight= 0.15)
 
         # Criação label entrada do codigo
@@ -71,18 +74,18 @@ class designer(classe_funcionalidades):
 
         # Criação label entrada do Cidade
         self.lb_cidade = Label(self.frame_1, text= 'Cidade',bg= '#d9dbde',fg='#496487')
-        self.lb_cidade.place(relx= 0.05, rely= 0.55)
+        self.lb_cidade.place(relx= 0.65, rely= 0.55)
 
         self.cidade_entry = Entry(self.frame_1)
-        self.cidade_entry.place(relx= 0.05, rely= 0.65, relwidth= 0.4)
+        self.cidade_entry.place(relx= 0.65, rely= 0.65, relwidth= 0.4)
         
     def lista_frame_2(self):
         self.lista_cliente = ttk.Treeview(self.frame_2, height= 3, column= ('col1','col2','col3','col4'))
         self.lista_cliente.heading('#0', text='')
         self.lista_cliente.heading('#1', text='Codigo')
-        self.lista_cliente.heading('#1', text='Nome')
-        self.lista_cliente.heading('#1', text='Telefone')
-        self.lista_cliente.heading('#1', text='Cidade')
+        self.lista_cliente.heading('#2', text='Nome')
+        self.lista_cliente.heading('#3', text='Telefone')
+        self.lista_cliente.heading('#4', text='Cidade')
 
         self.lista_cliente.column('#0', width=1)
         self.lista_cliente.column('#1', width=50)
@@ -92,7 +95,7 @@ class designer(classe_funcionalidades):
 
         self.lista_cliente.place(relx=0.01, rely=0.1, relwidth=0.95, relheight=0.85)
         self.barra_de_rolagem_lista = Scrollbar(self.frame_2, orient='vertical')
-        self.lista_cliente.configure(yscrooll=self.barra_de_rolagem_lista.set)
+        self.lista_cliente.configure(yscroll=self.barra_de_rolagem_lista.set)
         self.barra_de_rolagem_lista.place(relx=0.96, rely=0.1, relwidth=0.04, relheight=0.85)
         self.lista_cliente.bind('<Double-1>', self.duplo_clique)
         
@@ -106,8 +109,14 @@ class designer(classe_funcionalidades):
             self.janela.destroy()
         
         barra_de_menu.add_cascade(label= 'Opções', menu = file_menu_1)
-        barra_de_menu.add_cascade(label= 'Sobre', menu = file_menu_1)
+        barra_de_menu.add_cascade(label= 'Sobre', menu = file_menu_2)
 
+        file_menu_1.add_command(label= 'Limpar', command = self.limpa_cliente)
+        file_menu_1.add_command(label= 'Buscar', command = self.busca_cliente)
+        file_menu_1.add_command(label= 'Novo', command = self.add_cliente)
+        file_menu_1.add_command(label= 'Alterar', command = self.altera_cliente)
+        file_menu_1.add_command(label= 'Apagar', command = self.deleta_cliente)
         file_menu_1.add_command(label= 'Sair', command = quit)
-        file_menu_2.add_command(label= 'Limpa Cliente', command = command= self.limpa_cliente)
+
+        #file_menu_2.add_command(label= 'Informações', command= mb.showinfo('Informação', 'É necessário informar código e nome'))
 
