@@ -15,7 +15,6 @@ class designer(funcionalidades):
         self.frames_da_tela()
         self.widgets_frame_1()
         self.lista_frame_2()
-        self.monta_tabela()
         self.select_lista()
         self.indice()
         janela.mainloop()
@@ -36,19 +35,19 @@ class designer(funcionalidades):
 
     def widgets_frame_1(self):
         # Criação botão limpar
-        self.bt_limpar = Button(self.frame_1, text='Limpar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command= self.limpa_cliente)
+        self.bt_limpar = Button(self.frame_1, text='Limpar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command= self.limpa_empresa)
         self.bt_limpar.place(relx= 0.2, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão buscar
-        self.bt_buscar = Button(self.frame_1, text='Buscar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.busca_cliente)
+        self.bt_buscar = Button(self.frame_1, text='Buscar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.busca_empresa)
         self.bt_buscar.place(relx= 0.3, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão novo
-        self.bt_novo = Button(self.frame_1, text='Novo', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.add_cliente)
+        self.bt_novo = Button(self.frame_1, text='Novo', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.add_empresa)
         self.bt_novo.place(relx= 0.4, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão alterar
-        self.bt_alterar = Button(self.frame_1, text='Alterar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.altera_cliente)
+        self.bt_alterar = Button(self.frame_1, text='Alterar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.altera_empresa)
         self.bt_alterar.place(relx= 0.5, rely= 0.1, relwidth= 0.1, relheight= 0.15)
         # Criação botão apagar
-        self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.deleta_cliente)
+        self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.deleta_empresa)
         self.bt_apagar.place(relx= 0.6, rely= 0.1, relwidth= 0.1, relheight= 0.15)
 
         # Criação label entrada do codigo
@@ -80,24 +79,30 @@ class designer(funcionalidades):
         self.cidade_entry.place(relx= 0.65, rely= 0.65, relwidth= 0.4)
         
     def lista_frame_2(self):
-        self.lista_cliente = ttk.Treeview(self.frame_2, height= 3, column= ('col1','col2','col3','col4'))
-        self.lista_cliente.heading('#0', text='')
-        self.lista_cliente.heading('#1', text='Codigo')
-        self.lista_cliente.heading('#2', text='Nome')
-        self.lista_cliente.heading('#3', text='Telefone')
-        self.lista_cliente.heading('#4', text='Cidade')
+        self.lista_empresas = ttk.Treeview(self.frame_2, height= 3, column= ('col1','col2','col3','col4', 'col5','col6','col7'))
+        self.lista_empresas.heading('#0', text='')
+        self.lista_empresas.heading('#1', text='CNPJ')
+        self.lista_empresas.heading('#2', text='Razão Social')
+        self.lista_empresas.heading('#3', text='Código Natureza Jurídica')
+        self.lista_empresas.heading('#4', text='Qualificação do Responsavel')
+        self.lista_empresas.heading('#5', text='Capital Social')
+        self.lista_empresas.heading('#6', text='Codigo Porte')
+        self.lista_empresas.heading('#7', text='Ente Federativo')
 
-        self.lista_cliente.column('#0', width=1)
-        self.lista_cliente.column('#1', width=50)
-        self.lista_cliente.column('#2', width=200)
-        self.lista_cliente.column('#3', width=125)
-        self.lista_cliente.column('#4', width=125)
+        self.lista_empresas.column('#0', width=1)
+        self.lista_empresas.column('#1', width=25)
+        self.lista_empresas.column('#2', width=100)
+        self.lista_empresas.column('#3', width=75)
+        self.lista_empresas.column('#4', width=75)
+        self.lista_empresas.column('#5', width=75)
+        self.lista_empresas.column('#6', width=75)
+        self.lista_empresas.column('#7', width=75)
 
-        self.lista_cliente.place(relx=0.01, rely=0.1, relwidth=0.95, relheight=0.85)
+        self.lista_empresas.place(relx=0.01, rely=0.1, relwidth=0.95, relheight=0.85)
         self.barra_de_rolagem_lista = Scrollbar(self.frame_2, orient='vertical')
-        self.lista_cliente.configure(yscroll=self.barra_de_rolagem_lista.set)
+        self.lista_empresas.configure(yscroll=self.barra_de_rolagem_lista.set)
         self.barra_de_rolagem_lista.place(relx=0.96, rely=0.1, relwidth=0.04, relheight=0.85)
-        self.lista_cliente.bind('<Double-1>', self.duplo_clique)
+        self.lista_empresas.bind('<Double-1>', self.duplo_clique)
         
     def indice(self):
         barra_de_menu = Menu(self.janela)
@@ -108,15 +113,15 @@ class designer(funcionalidades):
         def quit():
             self.janela.destroy()
         
-        barra_de_menu.add_cascade(label= 'Opções', menu = file_menu_1)
+        barra_de_menu.add_cascade(label= 'Opções', menu = limpa_empresa)
         barra_de_menu.add_cascade(label= 'Sobre', menu = file_menu_2)
 
-        file_menu_1.add_command(label= 'Limpar', command = self.limpa_cliente)
-        file_menu_1.add_command(label= 'Buscar', command = self.busca_cliente)
-        file_menu_1.add_command(label= 'Novo', command = self.add_cliente)
-        file_menu_1.add_command(label= 'Alterar', command = self.altera_cliente)
-        file_menu_1.add_command(label= 'Apagar', command = self.deleta_cliente)
+        file_menu_1.add_command(label= 'Limpar', command = self.limpa_empresa)
+        file_menu_1.add_command(label= 'Buscar', command = self.busca_empresa)
+        file_menu_1.add_command(label= 'Novo', command = self.add_empresa)
+        file_menu_1.add_command(label= 'Alterar', command = self.altera_empresa)
+        file_menu_1.add_command(label= 'Apagar', command = self.add_empresa)
         file_menu_1.add_command(label= 'Sair', command = quit)
 
-        #file_menu_2.add_command(label= 'Informações', command= mb.showinfo('Informação', 'É necessário informar código e nome'))
+        #file_menu_2.add_command(label= 'Informações', command= mb.showinfo('deleta_empresaformação', 'É necessário informar código e nome'))
 

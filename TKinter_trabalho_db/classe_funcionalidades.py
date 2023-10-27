@@ -4,102 +4,97 @@ from tkinter import *
 
 class funcionalidades():
     def variaveis(self):
-        self.codigo = self.codigo_entry.get()
-        self.nome = self.nome_entry.get()
-        self.telefone = self.telefone_entry.get()
-        self.cidade = self.cidade_entry.get()
+        self.CNPJ = self.CNPJ_entry.get()
+        self.razao_social = self.razao_social_entry.get()
+        self.cod_nat_jur = self.cod_nat_jur_entry.get()
+        self.qualificacao_responsavel = self.qualificacao_responsavel_entry.get()
+        self.capital_social = self.capital_social_entry.get()
+        self.Cod_porte = self.Cod_porte_entry.get()
+        self.Ente_federativo = self.Ente_federativo_entry.get()
 
-    def limpa_cliente(self):
-        self.codigo_entry.delete(0, END)
-        self.nome_entry.delete(0, END)
-        self.telefone_entry.delete(0, END)
-        self.cidade_entry.delete(0, END)
+    def limpa_empresa(self):
+        self.CNPJ = self.CNPJ_entry.delete(0, END)
+        self.razao_social = self.razao_social_entry.delete(0, END)
+        self.cod_nat_jur = self.cod_nat_jur_entry.delete(0, END)
+        self.qualificacao_responsavel = self.qualificacao_responsavel_entry.delete(0, END)
+        self.Cod_porte = self.Cod_porte_entry.delete(0, END)
+        self.Ente_federativo = self.Ente_federativo_entry.delete(0, END)
 
     def conecta_db(self):
-        self.conn_db = sqlite3.connect('clientes.db')
+        path_empresas_db = '/home/matheus/Empresas0/desafio_tkinter.db'
+        self.conn_db = sqlite3.connect(path_empresas_db)
         self.cursor = self.conn_db.cursor(); print('Conectando ao banco de dados')
 
     def desconecta_bd(self):
         self.conn_db.close(); print('Desconectando ao banco de dados')
 
-    def monta_tabela(self):
-        self.conecta_db()
-        # Cria tabela
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS clientes (
-            cod INTEGER PRIMARY KEY,
-            nome_cliente CHAR(60) NOT NULL,
-            telefone INTEGER(20),
-            cidade CHAR(60)
-            );
-        ''')
-        self.conn_db.commit(); print('Banco de dados criado')
-        self.desconecta_bd()
-
-    def add_cliente(self):
+    def add_empresa(self):
         self.variaveis()
         self.conecta_db()
         self.cursor.execute('''
-            INSERT INTO clientes (nome_cliente, telefone, cidade)
-            VALUES (?, ?, ?)''', (self.nome, self.telefone, self.cidade))
+            INSERT INTO Empresas (CNPJ, razao_social, cod_nat_jur, qualificacao_responsavel, capital_social, Cod_porte, Ente_federativo)
+            VALUES (?, ?, ?, ?, ?, ?, ?)''', (self.CNPJ, self.razao_social, self.cod_nat_jur, self.qualificacao_responsavel, self.capital_social, self.Cod_porte, self.Ente_federativo))
         self.conn_db.commit()
         self.desconecta_bd()
         self.select_lista()
-        self.limpa_cliente()
+        self.limpa_empresa()
 
     def select_lista(self):
-        self.lista_cliente.delete(*self.lista_cliente.get_children())
+        self.lista_empresas.delete(*self.lista_empresas.get_children())
         self.conecta_db()
         lista = self.cursor.execute('''
-            SELECT cod, nome_cliente, telefone, cidade  FROM clientes
-            ORDER BY nome_cliente ASC; ''')
+            SELECT CNPJ, razao_social, cod_nat_jur, qualificacao_responsavel, capital_social, Cod_porte, Ente_federativo  FROM Empresas
+            ORDER BY razao_social ASC; ''')
         for i in lista:
-            self.lista_cliente.insert('', END, values=i)
+            self.lista_empresas.insert('', END, values=i)
         self.desconecta_bd()
 
     def duplo_clique(self, event):
-        self.limpa_cliente()
-        self.lista_cliente.selection()
+        self.limpa_empresa()
+        self.lista_empresas.selection()
 
-        for n in self.lista_cliente.selection():
-            col1, col2, col3, col4 = self.lista_cliente.item(n, 'values')
-            self.codigo_entry.insert(END, col1)
-            self.nome_entry.insert(END, col2)
-            self.telefone_entry.insert(END, col3)
-            self.cidade_entry.insert(END, col4)
-
-    def deleta_cliente(self):
+        for n in self.lista_empresas.selection():
+            col1, col2, col3, col4, col5, col6, col7 = self.lista_empresas.item(n, 'values')
+            self.CNPJ_entry.insert(END, col1)
+            self.razao_social_entry.insert(END, col2)
+            self.cod_nat_jur_entry.insert(END, col3)
+            self.qualificacao_responsavel_entry.insert(END, col4)
+            self.capital_social_entry(END, col5)
+            self.Cod_porte_entry.insert(END, col6)
+            self.Ente_federativo_entry.insert(END, col7)
+            
+    def deleta_empresa(self):
         self.variaveis()
         self.conecta_db()
-        self.cursor.execute('''DELETE FROM clientes WHERE cod = ? ''', (self.codigo))
+        self.cursor.execute('''DELETE FROM Empresas WHERE CNPJ = ? ''', (self.CNPJ))
         self.conn_db.commit()
         self.desconecta_bd()
-        self.limpa_cliente()
+        self.limpa_empresa()
         self.select_lista()
 
-    def altera_cliente(self):
+    def altera_empresa(self):
         self.variaveis()
         self.conecta_db()
         self.cursor.execute('''
-            UPDATE clientes SET nome_cliente = ?, telefone= ?, cidade = ?
-            WHERE cod = ?''', (self.nome, self.telefone, self.cidade, self.codigo))
+            UPDATE Empresas SET razao_social = ?, Cod_porte= ?, 
+            WHERE CNPJ = ?''', (self.razao_social, self.Cod_porte, self.CNPJ))
         self.conn_db.commit()
         self.desconecta_bd()
-        self.limpa_cliente()
+        self.limpa_empresa()
         self.select_lista()
 
-    def busca_cliente(self):
+    def busca_empresa(self):
         self.variaveis()
         self.conecta_db()
-        self.lista_cliente.delete(*self.lista_cliente.get_children())
-        self.nome_entry.insert(END, '%')
-        nome = self.nome_entry.get()
+        self.lista_empresas.delete(*self.lista_empresas.get_children())
+        self.razao_social_entry.insert(END, '%')
+        nome = self.razao_social_entry.get()
         self.cursor.execute('''
-            SELECT * FROM clientes
-            WHERE  nome_cliente LIKE '%s' ORDER BY nome_cliente ASC''' % nome)
-        busca_nome_cliente = self.cursor.fetchall()
-        for i in busca_nome_cliente:
-            self.lista_cliente.insert('', END, values=i)
-        self.limpa_cliente()
+            SELECT * FROM Empresas
+            WHERE  razao_social LIKE '%s' ORDER BY razao_social ASC''' % nome)
+        busca_nome_empresa = self.cursor.fetchall()
+        for i in busca_nome_empresa:
+            self.lista_empresas.insert('', END, values=i)
+        self.limpa_empresa()
         self.desconecta_bd()
         
