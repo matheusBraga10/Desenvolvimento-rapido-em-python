@@ -4,7 +4,7 @@ from tkinter import *
 
 class funcionalidades():
     def variaveis(self):
-        self.CNPJ = self.CNPJ_entry.get()
+        self.cnpj = self.cnpj_entry.get()
         self.razao_social = self.razao_social_entry.get()
         self.cod_nat_jur = self.cod_nat_jur_entry.get()
         self.qualificacao_responsavel = self.qualificacao_responsavel_entry.get()
@@ -13,7 +13,7 @@ class funcionalidades():
         self.Ente_federativo = self.Ente_federativo_entry.get()
 
     def limpa_empresa(self):
-        self.CNPJ = self.CNPJ_entry.delete(0, END)
+        self.cnpj = self.cnpj_entry.delete(0, END)
         self.razao_social = self.razao_social_entry.delete(0, END)
         self.cod_nat_jur = self.cod_nat_jur_entry.delete(0, END)
         self.qualificacao_responsavel = self.qualificacao_responsavel_entry.delete(0, END)
@@ -33,7 +33,7 @@ class funcionalidades():
         self.conecta_db()
         self.cursor.execute('''
             INSERT INTO Empresas (CNPJ, razao_social, cod_nat_jur, qualificacao_responsavel, capital_social, Cod_porte, Ente_federativo)
-            VALUES (?, ?, ?, ?, ?, ?, ?)''', (self.CNPJ, self.razao_social, self.cod_nat_jur, self.qualificacao_responsavel, self.capital_social, self.Cod_porte, self.Ente_federativo))
+            VALUES (?, ?, ?, ?, ?, ?, ?)''', (self.cnpj, self.razao_social, self.cod_nat_jur, self.qualificacao_responsavel, self.capital_social, self.Cod_porte, self.Ente_federativo))
         self.conn_db.commit()
         self.desconecta_bd()
         self.select_lista()
@@ -55,7 +55,7 @@ class funcionalidades():
 
         for n in self.lista_empresas.selection():
             col1, col2, col3, col4, col5, col6, col7 = self.lista_empresas.item(n, 'values')
-            self.CNPJ_entry.insert(END, col1)
+            self.cnpj_entry.insert(END, col1)
             self.razao_social_entry.insert(END, col2)
             self.cod_nat_jur_entry.insert(END, col3)
             self.qualificacao_responsavel_entry.insert(END, col4)
@@ -77,7 +77,7 @@ class funcionalidades():
         self.conecta_db()
         self.cursor.execute('''
             UPDATE Empresas SET razao_social = ?, Cod_porte= ?, 
-            WHERE CNPJ = ?''', (self.razao_social, self.Cod_porte, self.CNPJ))
+            WHERE CNPJ = ?''', (self.razao_social, self.Cod_porte, self.cnpj))
         self.conn_db.commit()
         self.desconecta_bd()
         self.limpa_empresa()

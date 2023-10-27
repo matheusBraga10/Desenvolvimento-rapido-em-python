@@ -20,7 +20,7 @@ class designer(funcionalidades):
         janela.mainloop()
     
     def tela(self):
-        self.janela.title('Sistema de cadastro')
+        self.janela.title('Sistema de cadastro de Empresas')
         self.janela.configure(background='#44474a')
         self.janela.geometry('700x500')
         self.janela.resizable(True, True)
@@ -50,33 +50,33 @@ class designer(funcionalidades):
         self.bt_apagar = Button(self.frame_1, text='Apagar', bd=2, bg='#496487', fg='white', font=('verdana',8,'bold'), command=self.deleta_empresa)
         self.bt_apagar.place(relx= 0.6, rely= 0.1, relwidth= 0.1, relheight= 0.15)
 
-        # Criação label entrada do codigo
-        self.lb_codigo = Label(self.frame_1, text= 'Código',bg= '#d9dbde',fg='#496487')
-        self.lb_codigo.place(relx= 0.05, rely= 0.05)
+        # Criação label entrada do CNPJ
+        self.lb_cnpj = Label(self.frame_1, text= 'CNPJ',bg= '#d9dbde',fg='#496487')
+        self.lb_cnpj.place(relx= 0.05, rely= 0.05)
 
-        self.codigo_entry = Entry(self.frame_1)
-        self.codigo_entry.place(relx= 0.05, rely= 0.15, relwidth= 0.08)
+        self.cnpj_entry = Entry(self.frame_1)
+        self.cnpj_entry.place(relx= 0.05, rely= 0.15, relwidth= 0.08)
 
-        # Criação label entrada do nome
-        self.lb_nome = Label(self.frame_1, text= 'Nome',bg= '#d9dbde',fg='#496487')
-        self.lb_nome.place(relx= 0.05, rely= 0.3)
+        # Criação label entrada do Razão social
+        self.lb_razao_social = Label(self.frame_1, text= 'Razão Social',bg= '#d9dbde',fg='#496487')
+        self.lb_razao_social.place(relx= 0.05, rely= 0.25)
 
-        self.nome_entry = Entry(self.frame_1)
-        self.nome_entry.place(relx= 0.05, rely= 0.4, relwidth= 0.9)
+        self.razao_social_entry = Entry(self.frame_1)
+        self.razao_social_entry.place(relx= 0.05, rely= 0.35, relwidth= 0.9)
 
-        # Criação label entrada do telefone
-        self.lb_telefone = Label(self.frame_1, text= 'Telefone',bg= '#d9dbde',fg='#496487')
-        self.lb_telefone.place(relx= 0.05, rely= 0.55)
+        # Criação label entrada do Codigo natureza
+        self.lb_cod_nat_jur = Label(self.frame_1, text= 'Código Natureza Juridica',bg= '#d9dbde',fg='#496487')
+        self.lb_cod_nat_jur.place(relx= 0.05, rely= 0.45)
 
-        self.telefone_entry = Entry(self.frame_1)
-        self.telefone_entry.place(relx= 0.05, rely= 0.65, relwidth= 0.4)
+        self.cod_nat_jur_entry = Entry(self.frame_1)
+        self.cod_nat_jur_entry.place(relx= 0.05, rely= 0.55, relwidth= 0.4)
 
         # Criação label entrada do Cidade
-        self.lb_cidade = Label(self.frame_1, text= 'Cidade',bg= '#d9dbde',fg='#496487')
-        self.lb_cidade.place(relx= 0.65, rely= 0.55)
+        self.lb_qualificacao_responsavel = Label(self.frame_1, text= 'Qualificação do Responsável',bg= '#d9dbde',fg='#496487')
+        self.lb_qualificacao_responsavel.place(relx= 0.45, rely= 0.5)
 
         self.cidade_entry = Entry(self.frame_1)
-        self.cidade_entry.place(relx= 0.65, rely= 0.65, relwidth= 0.4)
+        self.cidade_entry.place(relx= 0.55, rely= 0.55, relwidth= 0.4)
         
     def lista_frame_2(self):
         self.lista_empresas = ttk.Treeview(self.frame_2, height= 3, column= ('col1','col2','col3','col4', 'col5','col6','col7'))
@@ -113,7 +113,7 @@ class designer(funcionalidades):
         def quit():
             self.janela.destroy()
         
-        barra_de_menu.add_cascade(label= 'Opções', menu = limpa_empresa)
+        #barra_de_menu.add_cascade(label= 'Opções', menu = limpa_empresa)
         barra_de_menu.add_cascade(label= 'Sobre', menu = file_menu_2)
 
         file_menu_1.add_command(label= 'Limpar', command = self.limpa_empresa)
