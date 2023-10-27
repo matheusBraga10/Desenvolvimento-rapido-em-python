@@ -22,9 +22,9 @@ class designer(funcionalidades):
     def tela(self):
         self.janela.title('Sistema de cadastro de Empresas')
         self.janela.configure(background='#44474a')
-        self.janela.geometry('700x500')
+        self.janela.geometry('900x600')
         self.janela.resizable(True, True)
-        self.janela.minsize(width=700, height=500)
+        self.janela.minsize(width=900, height=600)
     
     def frames_da_tela(self):
         self.frame_1 = Frame(self.janela, bd= 3, bg= '#d9dbde', highlightthickness=5, highlightbackground= '#496487')
@@ -71,13 +71,34 @@ class designer(funcionalidades):
         self.cod_nat_jur_entry = Entry(self.frame_1)
         self.cod_nat_jur_entry.place(relx= 0.05, rely= 0.55, relwidth= 0.4)
 
-        # Criação label entrada do Cidade
+        # Criação label entrada do Qualificacao do responsavel
         self.lb_qualificacao_responsavel = Label(self.frame_1, text= 'Qualificação do Responsável',bg= '#d9dbde',fg='#496487')
-        self.lb_qualificacao_responsavel.place(relx= 0.45, rely= 0.5)
+        self.lb_qualificacao_responsavel.place(relx= 0.55, rely= 0.45)
 
-        self.cidade_entry = Entry(self.frame_1)
-        self.cidade_entry.place(relx= 0.55, rely= 0.55, relwidth= 0.4)
+        self.qualificacao_responsavel_entry = Entry(self.frame_1)
+        self.qualificacao_responsavel_entry.place(relx= 0.55, rely= 0.55, relwidth= 0.4)
+
+        # Criação label entrada do Capital Social
+        self.lb_capital_social = Label(self.frame_1, text= 'Capital Social',bg= '#d9dbde',fg='#496487')
+        self.lb_capital_social.place(relx= 0.05, rely= 0.65)
+
+        self.capital_social_entry = Entry(self.frame_1)
+        self.capital_social_entry.place(relx= 0.05, rely= 0.75, relwidth= 0.4)
+
+        # Criação label entrada do Codigo Porte
+        self.lb_Cod_porte = Label(self.frame_1, text= 'Código Porte',bg= '#d9dbde',fg='#496487')
+        self.lb_Cod_porte.place(relx= 0.55, rely= 0.65)
+
+        self.Cod_porte_entry = Entry(self.frame_1)
+        self.Cod_porte_entry.place(relx= 0.55, rely= 0.75, relwidth= 0.4)
         
+        # Criação label entrada do Ente federativo
+        self.lb_Ente_federativo = Label(self.frame_1, text= 'Ente Federativo',bg= '#d9dbde',fg='#496487')
+        self.lb_Ente_federativo.place(relx= 0.55, rely= 0.85)
+
+        self.Ente_federativo_entry = Entry(self.frame_1)
+        self.Ente_federativo_entry.place(relx= 0.55, rely= 0.95, relwidth= 0.4)
+
     def lista_frame_2(self):
         self.lista_empresas = ttk.Treeview(self.frame_2, height= 3, column= ('col1','col2','col3','col4', 'col5','col6','col7'))
         self.lista_empresas.heading('#0', text='')

@@ -17,6 +17,7 @@ class funcionalidades():
         self.razao_social = self.razao_social_entry.delete(0, END)
         self.cod_nat_jur = self.cod_nat_jur_entry.delete(0, END)
         self.qualificacao_responsavel = self.qualificacao_responsavel_entry.delete(0, END)
+        self.capital_social = self.capital_social_entry.delete(0, END)
         self.Cod_porte = self.Cod_porte_entry.delete(0, END)
         self.Ente_federativo = self.Ente_federativo_entry.delete(0, END)
 
