@@ -22,9 +22,14 @@ class funcionalidades():
         self.Ente_federativo = self.Ente_federativo_entry.delete(0, END)
 
     def conecta_db(self):
-        path_empresas_db = '/home/matheus/Empresas0/desafio_tkinter.db'
-        self.conn_db = sqlite3.connect(path_empresas_db)
-        self.cursor = self.conn_db.cursor(); print('Conectando ao banco de dados')
+        try:
+            path_empresas_db = '/home/matheus/Empresas0/desafio_tkinter.db'
+            self.conn_db = sqlite3.connect(path_empresas_db)
+            self.cursor = self.conn_db.cursor(); print('Conectando ao banco de dados')
+            return True
+        except sqlite3.DatabaseError as error:
+            print('Erro na conexao:', error)
+            return False
 
     def desconecta_bd(self):
         self.conn_db.close(); print('Desconectando ao banco de dados')
@@ -67,7 +72,7 @@ class funcionalidades():
     def deleta_empresa(self):
         self.variaveis()
         self.conecta_db()
-        self.cursor.execute('''DELETE FROM Empresas WHERE CNPJ = ? ''', (self.CNPJ))
+        self.cursor.execute('''DELETE FROM Empresas WHERE CNPJ = ? ''', (self.CNPJ,))
         self.conn_db.commit()
         self.desconecta_bd()
         self.limpa_empresa()
