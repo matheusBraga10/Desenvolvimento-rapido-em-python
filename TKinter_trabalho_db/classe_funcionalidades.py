@@ -7,6 +7,7 @@ class funcionalidades():
         self.cnpj = self.cnpj_entry.get()
         self.razao_social = self.razao_social_entry.get()
         self.cod_nat_jur = self.cod_nat_jur_entry.get()
+        self.desc_natureza = self.desc_natureza_entry.get()
         self.qualificacao_responsavel = self.qualificacao_responsavel_entry.get()
         self.capital_social = self.capital_social_entry.get()
         self.Cod_porte = self.Cod_porte_entry.get()
@@ -16,6 +17,7 @@ class funcionalidades():
         self.cnpj = self.cnpj_entry.delete(0, END)
         self.razao_social = self.razao_social_entry.delete(0, END)
         self.cod_nat_jur = self.cod_nat_jur_entry.delete(0, END)
+        self.desc_natureza = self.desc_natureza_entry.delete(0, END)
         self.qualificacao_responsavel = self.qualificacao_responsavel_entry.delete(0, END)
         self.capital_social = self.capital_social_entry.delete(0, END)
         self.Cod_porte = self.Cod_porte_entry.delete(0, END)
@@ -23,7 +25,7 @@ class funcionalidades():
 
     def conecta_db(self):
         try:
-            path_empresas_db = '/home/matheus/Empresas0/desafio_tkinter.db'
+            path_empresas_db = '/home/matheus/Documentos/MeusProjetos/Desenvolvimento-rapido-em-python/Desenvolvimento-rapido-em-python/TKinter_trabalho_db/empresas.db'
             self.conn_db = sqlite3.connect(path_empresas_db)
             self.cursor = self.conn_db.cursor(); print('Conectando ao banco de dados')
             return True
@@ -32,75 +34,96 @@ class funcionalidades():
             return False
 
     def desconecta_bd(self):
-        self.conn_db.close(); print('Desconectando ao banco de dados')
+        if(self.conn_db):
+            self.cursor.close()
+            self.conn_db.close(); print('Desconectando ao banco de dados')
 
     def add_empresa(self):
-        self.variaveis()
-        self.conecta_db()
-        self.cursor.execute('''
-            INSERT INTO Empresas (CNPJ, razao_social, cod_nat_jur, qualificacao_responsavel, capital_social, Cod_porte, Ente_federativo)
-            VALUES (?, ?, ?, ?, ?, ?, ?)''', (self.cnpj, self.razao_social, self.cod_nat_jur, self.qualificacao_responsavel, self.capital_social, self.Cod_porte, self.Ente_federativo))
-        self.conn_db.commit()
-        self.desconecta_bd()
-        self.select_lista()
-        self.limpa_empresa()
+        if(self.conecta_db()):
+            try:
+                self.variaveis()
+                self.cursor.execute('''
+                    INSERT INTO Empresa (cnpj, nome, cod_natureza, desc_natureza, qualificacao, cap_social, cod_porte, desc_porte)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', (self.cnpj, self.razao_social, self.cod_nat_jur, self.desc_natureza, self.qualificacao_responsavel, self.capital_social, self.Cod_porte, self.Ente_federativo))
+                self.conn_db.commit()
+                self.desconecta_bd()
+                self.select_lista()
+                self.limpa_empresa()
+            except sqlite3.DatabaseError as erro:
+                print(erro)
 
     def select_lista(self):
-        self.lista_empresas.delete(*self.lista_empresas.get_children())
-        self.conecta_db()
-        lista = self.cursor.execute('''
-            SELECT CNPJ, razao_social, cod_nat_jur, qualificacao_responsavel, capital_social, Cod_porte, Ente_federativo  FROM Empresas
-            ORDER BY razao_social ASC; ''')
-        for i in lista:
-            self.lista_empresas.insert('', END, values=i)
-        self.desconecta_bd()
+        if(self.conecta_db()):
+            try:
+                self.lista_empresas.delete(*self.lista_empresas.get_children())
+                lista = self.cursor.execute('''
+                    SELECT cnpj, nome, cod_natureza, qualificacao, cap_social, cod_porte, desc_porte  FROM Empresa
+                    ORDER BY nome ASC; ''')
+                for i in lista:
+                    self.lista_empresas.insert('', END, values=i)
+                self.desconecta_bd()
+            except sqlite3.DatabaseError as erro:
+                print(erro)
 
     def duplo_clique(self, event):
-        self.limpa_empresa()
-        self.lista_empresas.selection()
+        if(self.conecta_db()):
+            try:
+                self.limpa_empresa()
+                self.lista_empresas.selection()
 
-        for n in self.lista_empresas.selection():
-            col1, col2, col3, col4, col5, col6, col7 = self.lista_empresas.item(n, 'values')
-            self.cnpj_entry.insert(END, col1)
-            self.razao_social_entry.insert(END, col2)
-            self.cod_nat_jur_entry.insert(END, col3)
-            self.qualificacao_responsavel_entry.insert(END, col4)
-            self.capital_social_entry(END, col5)
-            self.Cod_porte_entry.insert(END, col6)
-            self.Ente_federativo_entry.insert(END, col7)
-            
+                for n in self.lista_empresas.selection():
+                    col1, col2, col3, col4, col5, col6, col7 = self.lista_empresas.item(n, 'values')
+                    self.cnpj_entry.insert(END, col1)
+                    self.razao_social_entry.insert(END, col2)
+                    self.cod_nat_jur_entry.insert(END, col3)
+                    self.qualificacao_responsavel_entry.insert(END, col4)
+                    self.capital_social_entry(END, col5)
+                    self.Cod_porte_entry.insert(END, col6)
+                    self.Ente_federativo_entry.insert(END, col7)
+            except sqlite3.DatabaseError as erro:
+                print(erro)
+                    
     def deleta_empresa(self):
-        self.variaveis()
-        self.conecta_db()
-        self.cursor.execute('''DELETE FROM Empresas WHERE CNPJ = ? ''', (self.CNPJ,))
-        self.conn_db.commit()
-        self.desconecta_bd()
-        self.limpa_empresa()
-        self.select_lista()
+        if(self.conecta_db()):
+            try:
+                self.variaveis()
+                self.conecta_db()
+                self.cursor.execute('''DELETE FROM Empresa WHERE cnpj = ? ''', (self.CNPJ,))
+                self.conn_db.commit()
+                self.desconecta_bd()
+                self.limpa_empresa()
+                self.select_lista()
+            except sqlite3.DatabaseError as erro:
+                print(erro)
 
     def altera_empresa(self):
-        self.variaveis()
-        self.conecta_db()
-        self.cursor.execute('''
-            UPDATE Empresas SET razao_social = ?, Cod_porte= ?, 
-            WHERE CNPJ = ?''', (self.razao_social, self.Cod_porte, self.cnpj))
-        self.conn_db.commit()
-        self.desconecta_bd()
-        self.limpa_empresa()
-        self.select_lista()
+        if(self.conecta_db()):
+            try:
+                self.variaveis()        
+                self.cursor.execute('''
+                    UPDATE Empresa SET nome = ?, cod_porte= ?, 
+                    WHERE cnpj = ?''', (self.razao_social, self.Cod_porte, self.cnpj))
+                self.conn_db.commit()
+                self.desconecta_bd()
+                self.limpa_empresa()
+                self.select_lista()
+            except sqlite3.DatabaseError as erro:
+                print(erro)
 
     def busca_empresa(self):
-        self.variaveis()
-        self.conecta_db()
-        self.lista_empresas.delete(*self.lista_empresas.get_children())
-        self.razao_social_entry.insert(END, '%')
-        nome = self.razao_social_entry.get()
-        self.cursor.execute('''
-            SELECT * FROM Empresas
-            WHERE  razao_social LIKE '%s' ORDER BY razao_social ASC''' % nome)
-        busca_nome_empresa = self.cursor.fetchall()
-        for i in busca_nome_empresa:
-            self.lista_empresas.insert('', END, values=i)
-        self.limpa_empresa()
-        self.desconecta_bd()
-        
+         if(self.conecta_db()):
+            try:
+                self.variaveis()
+                self.lista_empresas.delete(*self.lista_empresas.get_children())
+                self.razao_social_entry.insert(END, '%')
+                nome = self.razao_social_entry.get()
+                self.cursor.execute('''
+                    SELECT * FROM Empresa
+                    WHERE  nome LIKE '%s' ORDER BY nome ASC''' % nome)
+                busca_nome_empresa = self.cursor.fetchall()
+                for i in busca_nome_empresa:
+                    self.lista_empresas.insert('', END, values=i)
+                self.limpa_empresa()
+                self.desconecta_bd()
+            except sqlite3.DatabaseError as erro:
+                print(erro)        

@@ -71,6 +71,10 @@ class designer(funcionalidades):
         self.cod_nat_jur_entry = Entry(self.frame_1)
         self.cod_nat_jur_entry.place(relx= 0.05, rely= 0.55, relwidth= 0.4)
 
+        # Crianção label entrada da Descrição Natureza
+        ###
+        
+
         # Criação label entrada do Qualificacao do responsavel
         self.lb_qualificacao_responsavel = Label(self.frame_1, text= 'Qualificação do Responsável',bg= '#d9dbde',fg='#496487')
         self.lb_qualificacao_responsavel.place(relx= 0.55, rely= 0.45)
