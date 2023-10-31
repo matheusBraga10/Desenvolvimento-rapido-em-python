@@ -57,7 +57,7 @@ class funcionalidades():
             try:
                 self.lista_empresas.delete(*self.lista_empresas.get_children())
                 lista = self.cursor.execute('''
-                    SELECT cnpj, nome, cod_natureza, qualificacao, cap_social, cod_porte, desc_porte  FROM Empresa
+                    SELECT cnpj, nome, cod_natureza, desc_natureza, qualificacao, cap_social, cod_porte, desc_porte  FROM Empresa
                     ORDER BY nome ASC; ''')
                 for i in lista:
                     self.lista_empresas.insert('', END, values=i)
@@ -72,14 +72,15 @@ class funcionalidades():
                 self.lista_empresas.selection()
 
                 for n in self.lista_empresas.selection():
-                    col1, col2, col3, col4, col5, col6, col7 = self.lista_empresas.item(n, 'values')
+                    col1, col2, col3, col4, col5, col6, col7, col8 = self.lista_empresas.item(n, 'values')
                     self.cnpj_entry.insert(END, col1)
                     self.razao_social_entry.insert(END, col2)
                     self.cod_nat_jur_entry.insert(END, col3)
-                    self.qualificacao_responsavel_entry.insert(END, col4)
-                    self.capital_social_entry(END, col5)
-                    self.Cod_porte_entry.insert(END, col6)
-                    self.Ente_federativo_entry.insert(END, col7)
+                    self.desc_natureza_entry.insert(END, col4)
+                    self.qualificacao_responsavel_entry.insert(END, col5)
+                    self.capital_social_entry.insert(END, col6)
+                    self.Cod_porte_entry.insert(END, col7)
+                    self.Ente_federativo_entry.insert(END, col8)
             except sqlite3.DatabaseError as erro:
                 print(erro)
                     
@@ -88,7 +89,7 @@ class funcionalidades():
             try:
                 self.variaveis()
                 self.conecta_db()
-                self.cursor.execute('''DELETE FROM Empresa WHERE cnpj = ? ''', (self.CNPJ,))
+                self.cursor.execute('''DELETE FROM Empresa WHERE cnpj = ? ''', (self.cnpj,))
                 self.conn_db.commit()
                 self.desconecta_bd()
                 self.limpa_empresa()
@@ -101,7 +102,7 @@ class funcionalidades():
             try:
                 self.variaveis()        
                 self.cursor.execute('''
-                    UPDATE Empresa SET nome = ?, cod_porte= ?, 
+                    UPDATE Empresa SET nome = ?, cod_porte= ?
                     WHERE cnpj = ?''', (self.razao_social, self.Cod_porte, self.cnpj))
                 self.conn_db.commit()
                 self.desconecta_bd()
