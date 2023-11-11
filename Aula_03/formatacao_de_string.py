@@ -2,7 +2,7 @@ nome = "Fulano"
 teste_string = "Olá " + nome + "."
 teste_fstring1 = f"Olá {nome}."
 teste_fstring2 = f"Olá {nome.upper()}."
-teste_fstring3 = f"Quantos anos você tem? {pow(2,5)}."
+teste_fstring3 = f"Quantos anos você tem? {pow(2,6)}."
 teste_fstring4 = f"O número 2 é maior que 1? {2>1}"
 teste_fstring5 = f"O número 5 está na lista [1, 2, 3, 4]? {5 in [1, 2, 3, 4]}"
 
